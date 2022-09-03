@@ -32,6 +32,7 @@ const displayCategory = (data) => {
   data.forEach((data) => {
     const { thumbnail_url, title, details } = data;
     const { img, name, published_date } = data.author;
+    const { _id } = data;
     console.log(data);
     const categoryDiv = document.createElement("div");
     categoryDiv.setAttribute("class", "card mb-3");
@@ -40,10 +41,16 @@ const displayCategory = (data) => {
             <div class="col-md-3">
               <img src="${thumbnail_url}" class="img-fluid rounded-start" alt="..." />
             </div>
-            <div class="col-md-9 d-flex align-items-end">
+            <div class="col-md-9">
               <div class="card-body">
                 <h5 class="card-title">${title}</h5>
-                <p class="card-text">${details}</p>
+                <div class="details-text mb-5 ">
+                <p class="card-text ">
+                  <span>${details.slice(0, 250)}</span>
+                  <br><br>
+                  <span>${details.slice(0, 150)}</span>
+                </p>
+                </div>
                 <div class="d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center">
                     <img class="me-2 author-img" src="${img}"  alt="" />
@@ -64,7 +71,13 @@ const displayCategory = (data) => {
                     <i class="fa-regular fa-star"></i>
                   </div>
                   <div>
-                    <i class="fa-solid fa-arrow-right"></i>
+                  <button onClick="openDetails('${_id}')"
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal">
+                  More
+                  </button>
                   </div>
                 </div>
               </div>
@@ -73,4 +86,53 @@ const displayCategory = (data) => {
     `;
     categoryContainer.appendChild(categoryDiv);
   });
+};
+
+const openDetails = (news_id) => {
+  fetch(` https://openapi.programming-hero.com/api/news/${news_id}`)
+    .then((res) => res.json())
+    .then((data) => displaySelected(data.data[0]));
+};
+
+const displaySelected = (data) => {
+  const modelContainer = document.getElementById("model-container");
+  modelContainer.textContent = "";
+  const categoryDiv = document.createElement("div");
+  categoryDiv.setAttribute("class", "card mb-3");
+  categoryDiv.innerHTML = `
+    <div class="row g-0">
+            <div class="col-12">
+              <img src="${data.thumbnail_url}" class="w-100 img-fluid rounded-start" alt="..." />
+            </div>
+            <div class="col-12 d-flex align-items-end">
+              <div class="card-body">
+                <h5 class="card-title">${data.title}</h5>
+                <p class="card-text">${data.details}</p>
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <img class="me-2 author-img" src="${data.author.img}"  alt="" />
+                    <div>
+                      <p class="m-0">${data.author.name}</p>
+                      <p class="m-0">${data.author.published_date}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <img src="./image/carbon_view.png" alt="" />
+                    <span>${data.total_view}</span>
+                  </div>
+                  <div>
+                    <i class="fa-regular fa-star-half-stroke"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                  </div>
+                  <div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    `;
+  modelContainer.appendChild(categoryDiv);
 };

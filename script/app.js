@@ -100,16 +100,16 @@ const displayCategory = (data, categoryName) => {
 };
 // display total items categories
 const displayTotalItems = (count, categoryName) => {
-  const itemsCount = document.getElementById("items-count");
-  itemsCount.textContent = "";
+  const itemsCountContainer = document.getElementById("items-count-container");
+  itemsCountContainer.textContent = "";
   const itemsDiv = document.createElement("div");
   itemsDiv.innerHTML = `
   <div class="item-size d-flex align-items-center px-3">
           <h6><span class="txt-color fw-bold">${count}</span> items found for category <span class="txt-color fw-bold">${categoryName}</span></h6>
         </div>
   `;
-  itemsCount.appendChild(itemsDiv);
-  itemsCount.classList.remove("d-none");
+  itemsCountContainer.appendChild(itemsDiv);
+  itemsCountContainer.classList.remove("d-none");
 };
 
 // toggle loader

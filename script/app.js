@@ -9,12 +9,12 @@ loadNewsCatagories();
 const displayCatagories = (data) => {
   const catagoriesContainer = document.getElementById("catagories-container");
   data.forEach((data) => {
-    console.log(data);
+    // console.log(data);
     const { category_id, category_name } = data;
     const catagoriesList = document.createElement("li");
     catagoriesList.classList.add("nav-item");
     catagoriesList.innerHTML = `
-    <a onClick="loadCategory('${category_id}')" class="nav-link fw-bold text-secondary" href="#">${category_name}</a>
+    <a id="category-name" onClick="loadCategory('${category_id}')" class="nav-link fw-bold text-secondary" href="#">${category_name}</a>
     `;
     catagoriesContainer.appendChild(catagoriesList);
   });
@@ -27,13 +27,20 @@ const loadCategory = (categoryId) => {
 };
 
 const displayCategory = (data) => {
+  let count = 0;
   const categoryContainer = document.getElementById("category-container");
   categoryContainer.innerHTML = "";
+  console.log(count);
+  if (count <= 0) {
+    displayTotalItems(count);
+  }
   data.forEach((data) => {
     const { thumbnail_url, title, details } = data;
     const { img, name, published_date } = data.author;
     const { _id } = data;
-    console.log(data);
+    count++;
+    console.log(count, data);
+    displayTotalItems(count);
     const categoryDiv = document.createElement("div");
     categoryDiv.setAttribute("class", "card mb-3");
     categoryDiv.innerHTML = `
@@ -135,4 +142,19 @@ const displaySelected = (data) => {
           </div>
     `;
   modelContainer.appendChild(categoryDiv);
+};
+
+// display total items categories
+const displayTotalItems = (count) => {
+  console.log(count);
+  // const categoryName = document.getElementById("category-name");
+  // const name = categoryName.innerText;
+  // console.log(data);
+  const itemsCount = document.getElementById("items-count");
+  itemsCount.textContent = "";
+  const h6 = document.createElement("h6");
+
+  itemsCount.classList.remove("d-none");
+  h6.innerText = `${count ? count : "0"} items found`;
+  itemsCount.appendChild(h6);
 };

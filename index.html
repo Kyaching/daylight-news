@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Khagrachari News</title>
+    <title>Daylight News</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -21,9 +21,9 @@
     <header class="container my-4">
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"
-            ><span class="text-white bg-primary rounded-1 px-2 py-1"
-              >Khagrachari</span
+          <a class="navbar-brand fw-bold" href="#"
+            ><span class="text-white bg-color rounded-1 px-2 py-1"
+              >Daylight</span
             >
             News</a
           >
@@ -39,9 +39,11 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">News</a>
+                <a class="nav-link txt-color" aria-current="page" href="#"
+                  >News</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="blog.html">Blog</a>
@@ -66,8 +68,11 @@
       <!-- categories section ends -->
 
       <!-- Items found section starts -->
-      <section id="items-count" class="my-4 bg-white d-none">
-        <h6 id="">items found</h6>
+      <section class="my-4 bg-white">
+        <div
+          id="items-count"
+          class="item-size d-flex align-items-center px-3"
+        ></div>
       </section>
       <!-- Items found section ends -->
       <!-- Sort by View Section Starts -->
@@ -80,7 +85,7 @@
             </select>
           </div>
           <div>
-            <button class="btn btn-primary me-2">Today's Pick</button>
+            <button class="btn btn-primary me-2 bg-color">Today's Pick</button>
             <button class="btn btn-outline-primary">Trending</button>
           </div>
         </div>

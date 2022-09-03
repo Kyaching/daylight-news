@@ -15,7 +15,7 @@ const displayCatagories = (data) => {
     const catagoriesList = document.createElement("li");
     catagoriesList.classList.add("nav-item");
     catagoriesList.innerHTML = `
-    <a id="category-name" onClick="loadCategory('${category_id}')" class="nav-link fw-bold text-secondary" href="#">${category_name}</a>
+    <a id="category-name" onClick="loadCategory('${category_id}')" class="nav-link fw-semibold news-color" href="#">${category_name}</a>
     `;
     catagoriesContainer.appendChild(catagoriesList);
   });
@@ -44,18 +44,23 @@ const displayCategory = (data) => {
     console.log(count, data);
     displayTotalItems(count);
     const categoryDiv = document.createElement("div");
-    categoryDiv.setAttribute("class", "card mb-3");
+    categoryDiv.setAttribute("class", "card mb-4 border-0 p-3");
     categoryDiv.innerHTML = `
     <div class="row g-0">
-            <div class="col-md-3">
-              <img src="${thumbnail_url}" class="img-fluid rounded-start" alt="..." />
+            <div class="col-12 col-md-3">
+              <img src="${thumbnail_url}" class="w-100 rounded-start" alt="..." />
             </div>
             <div class="col-md-9">
               <div class="card-body">
                 <h5 class="card-title">${title}</h5>
-                <div class="details-text mb-5 ">
-                <p style="height:160px;" class="card-text ">
-                  <span>${details.slice(0, 700).concat("...")}</span>
+                <div class="details-text">
+                <p style="max-height:160px;" class="card-text text-over">
+                  <span  class="d-none d-md-block">${details
+                    .slice(0, 500)
+                    .concat("...")}</span>
+                  <span  class="d-block d-md-none">${details
+                    .slice(0, 200)
+                    .concat("...")}</span>
                 </p>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
@@ -72,7 +77,7 @@ const displayCategory = (data) => {
                     <img src="./image/carbon_view.png" alt="" />
                     <span>${total_view ? total_view : "no view"}</span>
                   </div>
-                  <div>
+                  <div class="d-none d-md-block">
                     <i class="fa-regular fa-star-half-stroke"></i>
                     <i class="fa-regular fa-star"></i>
                     <i class="fa-regular fa-star"></i>
@@ -154,16 +159,12 @@ const displaySelected = (data) => {
 // display total items categories
 const displayTotalItems = (count) => {
   console.log(count);
-  // const categoryName = document.getElementById("category-name");
-  // const name = categoryName.innerText;
-  // console.log(data);
   const itemsCount = document.getElementById("items-count");
   itemsCount.textContent = "";
   const h6 = document.createElement("h6");
-
-  itemsCount.classList.remove("d-none");
   h6.innerText = `${count ? count : "0"} items found`;
   itemsCount.appendChild(h6);
+  itemsCount.classList.remove("d-none");
 };
 
 // toggle loader

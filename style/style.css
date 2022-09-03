@@ -1,9 +1,27 @@
+body {
+  background-color: #f6f6f7;
+}
+.bg-color {
+  background-color: #5d5fef;
+}
+.txt-color {
+  color: #5d5fef;
+}
+.news-color {
+  color: #858585;
+}
 .author-img {
   height: 38px;
   width: 38px;
   border-radius: 50%;
 }
-
 .details-text {
   height: 160px;
+}
+.item-size {
+  height: 50px;
+}
+
+.text-over {
+  overflow: hidden;
 }

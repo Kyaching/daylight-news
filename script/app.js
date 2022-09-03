@@ -14,6 +14,7 @@ const displayCatagories = (data) => {
     const { category_id, category_name } = data;
     const catagoriesList = document.createElement("li");
     catagoriesList.classList.add("nav-item");
+    catagoriesList.id = "list-item";
     catagoriesList.innerHTML = `
     <a id="category-name" onClick="loadCategory('${category_id}')" class="nav-link fw-semibold news-color" href="#">${category_name}</a>
     `;
@@ -41,7 +42,7 @@ const displayCategory = (data) => {
     const { _id, thumbnail_url, title, details, total_view } = data;
     const { img, name, published_date } = data.author;
     count++;
-    console.log(count, data);
+    console.log(data);
     displayTotalItems(count);
     const categoryDiv = document.createElement("div");
     categoryDiv.setAttribute("class", "card mb-4 border-0 p-3");
@@ -119,7 +120,7 @@ const displaySelected = (data) => {
   categoryDiv.innerHTML = `
     <div class="row g-0">
             <div class="col-12">
-              <img src="${thumbnail_url}" class="w-100 img-fluid rounded-start" alt="..." />
+              <img style="height:300px" src="${thumbnail_url}" class="w-100 img-fluid rounded-start" alt="..." />
             </div>
             <div class="col-12 d-flex align-items-end">
               <div class="card-body">
@@ -158,7 +159,9 @@ const displaySelected = (data) => {
 
 // display total items categories
 const displayTotalItems = (count) => {
-  console.log(count);
+  const name = document.getElementById("list-item");
+  const name2 = name.lastElementChild.innerHTML;
+  console.log(name2);
   const itemsCount = document.getElementById("items-count");
   itemsCount.textContent = "";
   const h6 = document.createElement("h6");
@@ -176,4 +179,4 @@ const toggleSpinner = (isLoading) => {
     loaderSection.classList.add("d-none");
   }
 };
-loadCategory("01");
+loadCategory("08");

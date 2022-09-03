@@ -14,33 +14,31 @@ const displayCatagories = (data) => {
     const catagoriesList = document.createElement("li");
     catagoriesList.classList.add("nav-item");
     catagoriesList.innerHTML = `
-    <a onClick="loadCategory('${category_id}')" class="nav-link fw-semibold news-color" href="#">${category_name}</a>
+    <a id="news-name" onClick="loadCategory('${category_id}','${category_name}')" class="nav-link fw-semibold news-color" href="#">${category_name}</a>
     `;
     catagoriesContainer.appendChild(catagoriesList);
   });
 };
 
-const loadCategory = (categoryId) => {
+const loadCategory = (categoryId, categoryName) => {
   toggleSpinner(true);
   fetch(`https://openapi.programming-hero.com/api/news/category/${categoryId}`)
     .then((res) => res.json())
-    .then((data) => displayCategory(data.data))
+    .then((data) => displayCategory(data.data, categoryName))
     .catch((error) => console.log(error, "Invalid Url"));
 };
-const displayCategory = (data) => {
-  data.sort((a, b) => b.total_view - a.total_view);
-  let count = 0;
-  const categoryContainer = document.getElementById("category-container");
-  categoryContainer.innerHTML = "";
-  if (count <= 0) {
-    displayTotalItems(count);
+const displayCategory = (data, categoryName) => {
+  if (data.length <= 0) {
+    displayTotalItems(data.length, categoryName);
     toggleSpinner(false);
   }
+  displayTotalItems(data.length, categoryName);
+  data.sort((a, b) => b.total_view - a.total_view);
+  const categoryContainer = document.getElementById("category-container");
+  categoryContainer.innerHTML = "";
   data.forEach((data) => {
     const { _id, thumbnail_url, title, details, total_view } = data;
     const { img, name, published_date } = data.author;
-    count++;
-    displayTotalItems(count);
     const categoryDiv = document.createElement("div");
     categoryDiv.setAttribute("class", "card mb-4 border-0 p-3");
     categoryDiv.innerHTML = `
@@ -101,12 +99,16 @@ const displayCategory = (data) => {
   });
 };
 // display total items categories
-const displayTotalItems = (count) => {
+const displayTotalItems = (count, categoryName) => {
   const itemsCount = document.getElementById("items-count");
   itemsCount.textContent = "";
-  const h6 = document.createElement("h6");
-  h6.innerText = `${count ? count : "0"} items found for this category`;
-  itemsCount.appendChild(h6);
+  const itemsDiv = document.createElement("div");
+  itemsDiv.innerHTML = `
+  <div class="item-size d-flex align-items-center px-3">
+          <h6><span class="txt-color fw-bold">${count}</span> items found for category <span class="txt-color fw-bold">${categoryName}</span></h6>
+        </div>
+  `;
+  itemsCount.appendChild(itemsDiv);
   itemsCount.classList.remove("d-none");
 };
 
@@ -119,7 +121,7 @@ const toggleSpinner = (isLoading) => {
     loaderSection.classList.add("d-none");
   }
 };
-loadCategory("08");
+loadCategory("08", "All News");
 const openDetails = (news_id) => {
   fetch(` https://openapi.programming-hero.com/api/news/${news_id}`)
     .then((res) => res.json())

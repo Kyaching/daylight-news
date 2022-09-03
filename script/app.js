@@ -21,12 +21,17 @@ const displayCatagories = (data) => {
 };
 
 const loadCategory = (categoryId) => {
-  fetch(`https://openapi.programming-hero.com/api/news/category/${categoryId}`)
+  fetch(
+    `https://openapi.programming-hero.com/api/news/category/${
+      categoryId ? categoryId : "01"
+    }`
+  )
     .then((res) => res.json())
     .then((data) => displayCategory(data.data));
 };
 
 const displayCategory = (data) => {
+  data.sort((a, b) => b.total_view - a.total_view);
   let count = 0;
   const categoryContainer = document.getElementById("category-container");
   categoryContainer.innerHTML = "";
@@ -35,9 +40,8 @@ const displayCategory = (data) => {
     displayTotalItems(count);
   }
   data.forEach((data) => {
-    const { thumbnail_url, title, details } = data;
+    const { _id, thumbnail_url, title, details, total_view } = data;
     const { img, name, published_date } = data.author;
-    const { _id } = data;
     count++;
     console.log(count, data);
     displayTotalItems(count);
@@ -53,22 +57,24 @@ const displayCategory = (data) => {
                 <h5 class="card-title">${title}</h5>
                 <div class="details-text mb-5 ">
                 <p class="card-text ">
-                  <span>${details.slice(0, 250)}</span>
+                  <span>${details.slice(0, 250).concat("...")}</span>
                   <br><br>
-                  <span>${details.slice(0, 150)}</span>
+                  <span>${details.slice(0, 150).concat("...")}</span>
                 </p>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center">
                     <img class="me-2 author-img" src="${img}"  alt="" />
                     <div>
-                      <p class="m-0">${name}</p>
-                      <p class="m-0">${published_date}</p>
+                      <p class="m-0">${name ? name : "Not found"}</p>
+                      <p class="m-0">${
+                        published_date ? published_date : "Not found"
+                      }</p>
                     </div>
                   </div>
                   <div>
                     <img src="./image/carbon_view.png" alt="" />
-                    <span>${data.total_view}</span>
+                    <span>${total_view ? total_view : "no view"}</span>
                   </div>
                   <div>
                     <i class="fa-regular fa-star-half-stroke"></i>
@@ -94,7 +100,6 @@ const displayCategory = (data) => {
     categoryContainer.appendChild(categoryDiv);
   });
 };
-
 const openDetails = (news_id) => {
   fetch(` https://openapi.programming-hero.com/api/news/${news_id}`)
     .then((res) => res.json())

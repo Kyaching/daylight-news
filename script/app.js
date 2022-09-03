@@ -10,13 +10,11 @@ loadNewsCatagories();
 const displayCatagories = (data) => {
   const catagoriesContainer = document.getElementById("catagories-container");
   data.forEach((data) => {
-    // console.log(data);
     const { category_id, category_name } = data;
     const catagoriesList = document.createElement("li");
     catagoriesList.classList.add("nav-item");
-    catagoriesList.id = "list-item";
     catagoriesList.innerHTML = `
-    <a id="category-name" onClick="loadCategory('${category_id}')" class="nav-link fw-semibold news-color" href="#">${category_name}</a>
+    <a onClick="loadCategory('${category_id}')" class="nav-link fw-semibold news-color" href="#">${category_name}</a>
     `;
     catagoriesContainer.appendChild(catagoriesList);
   });
@@ -42,7 +40,6 @@ const displayCategory = (data) => {
     const { _id, thumbnail_url, title, details, total_view } = data;
     const { img, name, published_date } = data.author;
     count++;
-    console.log(data);
     displayTotalItems(count);
     const categoryDiv = document.createElement("div");
     categoryDiv.setAttribute("class", "card mb-4 border-0 p-3");
@@ -103,6 +100,26 @@ const displayCategory = (data) => {
     toggleSpinner(false);
   });
 };
+// display total items categories
+const displayTotalItems = (count) => {
+  const itemsCount = document.getElementById("items-count");
+  itemsCount.textContent = "";
+  const h6 = document.createElement("h6");
+  h6.innerText = `${count ? count : "0"} items found for this category`;
+  itemsCount.appendChild(h6);
+  itemsCount.classList.remove("d-none");
+};
+
+// toggle loader
+const toggleSpinner = (isLoading) => {
+  const loaderSection = document.getElementById("spinner-loader");
+  if (isLoading) {
+    loaderSection.classList.remove("d-none");
+  } else {
+    loaderSection.classList.add("d-none");
+  }
+};
+loadCategory("08");
 const openDetails = (news_id) => {
   fetch(` https://openapi.programming-hero.com/api/news/${news_id}`)
     .then((res) => res.json())
@@ -111,7 +128,7 @@ const openDetails = (news_id) => {
 };
 
 const displaySelected = (data) => {
-  const { _id, thumbnail_url, title, details, total_view } = data;
+  const { thumbnail_url, title, details, total_view } = data;
   const { img, name, published_date } = data.author;
   const modelContainer = document.getElementById("model-container");
   modelContainer.textContent = "";
@@ -156,27 +173,3 @@ const displaySelected = (data) => {
     `;
   modelContainer.appendChild(categoryDiv);
 };
-
-// display total items categories
-const displayTotalItems = (count) => {
-  const name = document.getElementById("list-item");
-  const name2 = name.lastElementChild.innerHTML;
-  console.log(name2);
-  const itemsCount = document.getElementById("items-count");
-  itemsCount.textContent = "";
-  const h6 = document.createElement("h6");
-  h6.innerText = `${count ? count : "0"} items found`;
-  itemsCount.appendChild(h6);
-  itemsCount.classList.remove("d-none");
-};
-
-// toggle loader
-const toggleSpinner = (isLoading) => {
-  const loaderSection = document.getElementById("spinner-loader");
-  if (isLoading) {
-    loaderSection.classList.remove("d-none");
-  } else {
-    loaderSection.classList.add("d-none");
-  }
-};
-loadCategory("08");

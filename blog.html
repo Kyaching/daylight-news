@@ -17,8 +17,182 @@
     </header>
     <main class="container">
       <section class="my-4">
-        <h4>Q.1: What is the difference between var, let and const?</h4>
+        <div class="card">
+          <div class="card-header">
+            Q.1: What is the difference between var, let and const?
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">SI</th>
+                  <th scope="col">var</th>
+                  <th scope="col">let</th>
+                  <th scope="col">const</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>The scope of a var variable is functional scope</td>
+                  <td>The scope of a let variable is block scope</td>
+                  <td>The scope of a let variable is block scope</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>It can be updated and re-declared into the scope</td>
+                  <td>
+                    It can be updated but cannot be re-declared into the scope
+                  </td>
+                  <td>It cannot be updated or re-declared into the scope</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>It can be declared without initialization</td>
+                  <td>It can be declared without initialization</td>
+                  <td>It cannot be declared without initialization</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>It's an old ways to declare variable</td>
+                  <td>It's a new way to declare variable introduced in ES6</td>
+                  <td>
+                    It's also a new way to declare variable introduced in ES6
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <h4></h4>
         <p></p>
+      </section>
+      <section class="my-4">
+        <div class="card">
+          <div class="card-header">
+            Q.2: What is the difference between arrow function vs regular
+            function? ?
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">SI</th>
+                  <th scope="col">arrow function vs regular function</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    The first and most obvious difference between arrow
+                    functions and regular functions is their syntax. Not only do
+                    they look different, but arrow functions also provide an
+                    implicit return shorthand and allow parenthesis around a
+                    single argument to be omitted.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>
+                    Inside a regular function, execution context (i.e. the value
+                    of this) is dynamic. This means that the value of this
+                    depends on how the function was invoked (simple invocation,
+                    method invocation, indirect invocation or constructor
+                    invocation). On the other hand, an arrow function does not
+                    define its own execution context. This results in an arrow
+                    function's this being resolved lexically (i.e. the scope in
+                    which the arrow function was defined).
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>
+                    Function.prototype.call(), Function.prototype.bind() and
+                    Function.prototype.apply() do not work correctly with arrow
+                    functions either. Their purpose is to allow methods to
+                    execute within different scopes, but the this value of an
+                    arrow function cannot be changed, as it's resolved
+                    lexically.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>
+                    Due to arrow functions not defining their own execution
+                    context, they're not well-suited for usage as methods.
+                    However, thanks to the Class fields proposal, arrow
+                    functions can be used as methods inside classes, if your
+                    environment supports it.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <h4></h4>
+        <p></p>
+      </section>
+      <section class="my-4">
+        <div class="card">
+          <div class="card-header">
+            Q.3:Difference between map, forEach, filter, find?
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    .map() executes the same code on every element in an array
+                    and returns a new array with the updated elements.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    .forEach(), is used to execute the same code on every
+                    element in an array but does not change the array and it
+                    returns undefined.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    .filter() checks every element in an array to see if it
+                    meets a certain criteria and returns a new array with the
+                    elements that return truthy for the criteria.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    The find() method returns the first element in the provided
+                    array that satisfies the provided testing function. If no
+                    values satisfy the testing function, undefined is returned.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <h4></h4>
+        <p></p>
+      </section>
+      <section class="my-4">
+        <div class="card">
+          <div class="card-header">Q.4: Why we use template string?</div>
+          <div class="card-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    You can use template strings to write your string exactly
+                    how you want it to appear, without all the quotation marks
+                    and confusion. Template strings make it very easy to spot a
+                    missing space and make your string more readable.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
     </main>
     <script

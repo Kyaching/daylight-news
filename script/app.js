@@ -22,15 +22,10 @@ const displayCatagories = (data) => {
 
 const loadCategory = (categoryId) => {
   toggleSpinner(true);
-  fetch(
-    `https://openapi.programming-hero.com/api/news/category/${
-      categoryId ? categoryId : "01"
-    }`
-  )
+  fetch(`https://openapi.programming-hero.com/api/news/category/${categoryId}`)
     .then((res) => res.json())
     .then((data) => displayCategory(data.data));
 };
-
 const displayCategory = (data) => {
   data.sort((a, b) => b.total_view - a.total_view);
   let count = 0;
@@ -176,3 +171,4 @@ const toggleSpinner = (isLoading) => {
     loaderSection.classList.add("d-none");
   }
 };
+loadCategory("01");

@@ -15,7 +15,7 @@ const displayCatagories = (data) => {
     const catagoriesList = document.createElement("li");
     catagoriesList.classList.add("nav-item");
     catagoriesList.innerHTML = `
-    <a id="category-name" onClick="loadCategory('${category_id}', ${category_name})" class="nav-link fw-bold text-secondary" href="#">${category_name}</a>
+    <a id="category-name" onClick="loadCategory('${category_id}')" class="nav-link fw-bold text-secondary" href="#">${category_name}</a>
     `;
     catagoriesContainer.appendChild(catagoriesList);
   });
@@ -54,10 +54,8 @@ const displayCategory = (data) => {
               <div class="card-body">
                 <h5 class="card-title">${title}</h5>
                 <div class="details-text mb-5 ">
-                <p class="card-text ">
-                  <span>${details.slice(0, 250).concat("...")}</span>
-                  <br><br>
-                  <span>${details.slice(0, 150).concat("...")}</span>
+                <p style="height:160px;" class="card-text ">
+                  <span>${details.slice(0, 700).concat("...")}</span>
                 </p>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">

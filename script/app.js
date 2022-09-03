@@ -2,7 +2,8 @@
 const loadNewsCatagories = () => {
   fetch(`https://openapi.programming-hero.com/api/news/categories`)
     .then((res) => res.json())
-    .then((data) => displayCatagories(data.data.news_category));
+    .then((data) => displayCatagories(data.data.news_category))
+    .catch((error) => console.log(error, "Invalid url"));
 };
 loadNewsCatagories();
 // display All news catagories in UI
@@ -14,7 +15,7 @@ const displayCatagories = (data) => {
     const catagoriesList = document.createElement("li");
     catagoriesList.classList.add("nav-item");
     catagoriesList.innerHTML = `
-    <a id="category-name" onClick="loadCategory('${category_id}')" class="nav-link fw-bold text-secondary" href="#">${category_name}</a>
+    <a id="category-name" onClick="loadCategory('${category_id}', ${category_name})" class="nav-link fw-bold text-secondary" href="#">${category_name}</a>
     `;
     catagoriesContainer.appendChild(catagoriesList);
   });
@@ -24,14 +25,14 @@ const loadCategory = (categoryId) => {
   toggleSpinner(true);
   fetch(`https://openapi.programming-hero.com/api/news/category/${categoryId}`)
     .then((res) => res.json())
-    .then((data) => displayCategory(data.data));
+    .then((data) => displayCategory(data.data))
+    .catch((error) => console.log(error, "Invalid Url"));
 };
 const displayCategory = (data) => {
   data.sort((a, b) => b.total_view - a.total_view);
   let count = 0;
   const categoryContainer = document.getElementById("category-container");
   categoryContainer.innerHTML = "";
-  console.log(count);
   if (count <= 0) {
     displayTotalItems(count);
     toggleSpinner(false);
@@ -101,10 +102,13 @@ const displayCategory = (data) => {
 const openDetails = (news_id) => {
   fetch(` https://openapi.programming-hero.com/api/news/${news_id}`)
     .then((res) => res.json())
-    .then((data) => displaySelected(data.data[0]));
+    .then((data) => displaySelected(data.data[0]))
+    .catch((error) => console.log(error, "Invalid"));
 };
 
 const displaySelected = (data) => {
+  const { _id, thumbnail_url, title, details, total_view } = data;
+  const { img, name, published_date } = data.author;
   const modelContainer = document.getElementById("model-container");
   modelContainer.textContent = "";
   const categoryDiv = document.createElement("div");
@@ -112,23 +116,25 @@ const displaySelected = (data) => {
   categoryDiv.innerHTML = `
     <div class="row g-0">
             <div class="col-12">
-              <img src="${data.thumbnail_url}" class="w-100 img-fluid rounded-start" alt="..." />
+              <img src="${thumbnail_url}" class="w-100 img-fluid rounded-start" alt="..." />
             </div>
             <div class="col-12 d-flex align-items-end">
               <div class="card-body">
-                <h5 class="card-title">${data.title}</h5>
-                <p class="card-text">${data.details}</p>
+                <h5 class="card-title">${title}</h5>
+                <p class="card-text">${details}</p>
                 <div class="d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center">
-                    <img class="me-2 author-img" src="${data.author.img}"  alt="" />
+                    <img class="me-2 author-img" src="${img}"  alt="" />
                     <div>
-                      <p class="m-0">${data.author.name}</p>
-                      <p class="m-0">${data.author.published_date}</p>
+                      <p class="m-0">${name ? name : "Not found"}</p>
+                      <p class="m-0">${
+                        published_date ? published_date : "Not found"
+                      }</p>
                     </div>
                   </div>
                   <div>
                     <img src="./image/carbon_view.png" alt="" />
-                    <span>${data.total_view}</span>
+                    <span>${total_view ? total_view : "no view"}</span>
                   </div>
                   <div>
                     <i class="fa-regular fa-star-half-stroke"></i>

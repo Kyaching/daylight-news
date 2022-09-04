@@ -160,7 +160,7 @@ const displaySelected = (data) => {
                     <img src="./image/carbon_view.png" alt="" />
                     <span>${total_view ? total_view : "0"}</span>
                   </div>
-                  <div>
+                  <div class="mt-3">
                       <p>Rating: ${number ? number : "0.0"}</p>
                   </div>
                   <div>

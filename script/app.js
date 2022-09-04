@@ -71,7 +71,7 @@ const displayCategory = (data, categoryName) => {
                   </div>
                   <div>
                     <img src="./image/carbon_view.png" alt="" />
-                    <span>${total_view ? total_view : "no view"}</span>
+                    <span>${total_view ? total_view : "0"}</span>
                   </div>
                   <div class="d-none d-md-block">
                     <i class="fa-regular fa-star-half-stroke"></i>
@@ -132,6 +132,7 @@ const openDetails = (news_id) => {
 const displaySelected = (data) => {
   const { thumbnail_url, title, details, total_view } = data;
   const { img, name, published_date } = data.author;
+  const { number } = data.rating;
   const modelContainer = document.getElementById("model-container");
   modelContainer.textContent = "";
   const categoryDiv = document.createElement("div");
@@ -157,14 +158,10 @@ const displaySelected = (data) => {
                   </div>
                   <div>
                     <img src="./image/carbon_view.png" alt="" />
-                    <span>${total_view ? total_view : "no view"}</span>
+                    <span>${total_view ? total_view : "0"}</span>
                   </div>
                   <div>
-                    <i class="fa-regular fa-star-half-stroke"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
+                      <p>Rating: ${number ? number : "0.0"}</p>
                   </div>
                   <div>
                   </div>
